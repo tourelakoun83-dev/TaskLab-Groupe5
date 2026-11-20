@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block contenu %}
+<h1>Gestion des tâches</h1>
+<p>Utilisez les filtres pour retrouver rapidement vos tâches.</p>
+<form method="get" class="filtres">
+  <label for="statut">Filtrer par statut :</label>
+  <select name="statut" id="statut">
+    <option value="">Tous les statuts</option>
+    {% for code, libelle in statuts %}
+      <option value="{{ code }}" {% if statut_selectionne == code %}selected{% endif %}>{{ libelle }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Appliquer</button>
+</form>
+<p><a href="{% url 'liste_taches' %}?priorite=1">Afficher uniquement les tâches de priorité 1 (Groupe 5)</a>
+| <a href="{% url 'liste_taches' %}">Réinitialiser les filtres</a></p>
+{% if priorite_selectionnee %}<p><strong>Filtre actif : priorité 1.</strong></p>{% endif %}
+<ul>
+{% for tache in taches %}
+<li>
+  <strong>{{ tache.titre }}</strong> — {{ tache.get_statut_display }} — priorité {{ tache.priorite }}
+  <p>{{ tache.description }}</p>
+  <a href="{% url 'modifier_tache' tache.pk %}">Modifier</a>
+  <form method="post" action="{% url 'supprimer_tache' tache.pk %}" style="display:inline">
+    {% csrf_token %}<button type="submit">Supprimer</button>
+  </form>
+</li>
+{% empty %}<li>Aucune tâche ne correspond à ces filtres.</li>
+{% endfor %}
+</ul>
+{% endblock %}
