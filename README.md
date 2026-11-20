@@ -1,85 +1,207 @@
 # TaskLab TWIN2 — Groupe 5
 
-Application pédagogique de gestion des tâches réalisée avec Django. Cette version contient les fonctionnalités communes demandées dans le TP et la variante du **Groupe 5**.
+## Présentation du projet
+
+TaskLab est une application pédagogique de gestion des tâches développée avec le framework Django dans le cadre du TP de Génie Logiciel TWIN2.
+
+Le projet permet de créer, consulter, modifier, supprimer et filtrer des tâches.
+
+Cette version comprend les fonctionnalités communes du TP ainsi que la variante demandée au Groupe 5.
 
 ## Fonctionnalités
-- Afficher la liste des tâches, créer, modifier et supprimer une tâche.
-- Valider les données du formulaire (priorité comprise entre 1 et 3).
-- **Filtre commun :** filtrer la liste par statut (`A_FAIRE`, `EN_COURS`, `TERMINEE`).
-- **Variante Groupe 5 :** afficher uniquement les tâches de priorité 1 avec le lien « Afficher uniquement les tâches de priorité 1 » (`?priorite=1`).
-- Combiner le filtre par statut et le filtre de priorité 1.
-- Tests automatisés couvrant les opérations et les filtres.
+
+- Afficher la liste des tâches.
+- Créer une nouvelle tâche.
+- Modifier une tâche existante.
+- Supprimer une tâche.
+- Vérifier les données saisies dans les formulaires.
+- Filtrer les tâches selon leur statut : À faire, En cours et Terminée.
+- Afficher uniquement les tâches de priorité 1 (variante Groupe 5).
+- Combiner le filtre par statut et celui de priorité 1.
+- Exécuter des tests automatisés.
+
+## Technologies utilisées
+
+- Python
+- Django
+- SQLite
+- HTML et CSS
+- Git et GitHub
 
 ## Prérequis
-- Python 3.11 ou plus récent
-- Git
-- Un terminal (PowerShell sous Windows)
 
-## Installation sous Windows (PowerShell)
-Ouvrir le dossier du projet dans VS Code, puis ouvrir **Terminal > Nouveau terminal** et exécuter les commandes une par une :
+- Python 3.11 ou plus récent.
+- Git.
+- Visual Studio Code (recommandé).
+- Un navigateur web.
+
+## Installation sous Windows
+
+### 1. Récupérer le projet
+
+Cloner le dépôt GitHub :
+
+```bash
+git clone https://github.com/tourelakoun83-dev/TaskLab-Groupe5.git
+```
+
+Entrer dans le dossier du projet :
+
+```bash
+cd TaskLab-Groupe5
+```
+
+### 2. Créer l'environnement virtuel
+
+```bash
+py -m venv .venv
+```
+
+Activer l'environnement :
 
 ```powershell
-py -m venv .venv
 .venv\Scripts\Activate.ps1
+```
+
+Si PowerShell bloque l'activation, exécuter :
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+Puis recommencer l'activation.
+
+### 3. Installer les dépendances
+
+```bash
 python -m pip install --upgrade pip
 pip install -r requirements.txt
+```
+
+### 4. Préparer la base de données
+
+```bash
 python manage.py migrate
+```
+
+### 5. Lancer les tests
+
+```bash
 python manage.py test
+```
+
+Les tests doivent se terminer sans échec.
+
+### 6. Démarrer l'application
+
+```bash
 python manage.py runserver
 ```
 
-Si PowerShell bloque l'activation de l'environnement, exécuter dans le terminal :
-`Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`, puis recommencer l'activation.
+Ouvrir ensuite cette adresse dans le navigateur :
 
-Ouvrir ensuite http://127.0.0.1:8000/ dans le navigateur.
+http://127.0.0.1:8000/
 
-## Tests
-```powershell
+## Vérification des fonctionnalités
+
+Pour vérifier le filtre de priorité 1 :
+
+1. Ajouter une tâche avec une priorité de 1.
+2. Ajouter une autre tâche avec une priorité de 2.
+3. Retourner à la liste des tâches.
+4. Cliquer sur le lien permettant d'afficher uniquement les tâches de priorité 1.
+5. Vérifier que seules les tâches concernées apparaissent.
+
+Pour vérifier le filtre par statut :
+
+1. Sélectionner un statut.
+2. Cliquer sur Appliquer.
+3. Vérifier que seules les tâches ayant ce statut sont affichées.
+
+Les deux filtres doivent pouvoir être utilisés ensemble.
+
+## Tests automatisés
+
+Les tests sont exécutés avec la commande :
+
+```bash
 python manage.py test
 ```
-Le résultat attendu est `OK` et zéro échec. Les tests vérifient la création du modèle, l'accès à la liste, la validation du formulaire, la création et la suppression par POST, le filtre par statut, le filtre Groupe 5 et leur combinaison.
 
-## Démonstration de la variante Groupe 5
-1. Ajouter une tâche avec priorité `1`.
-2. Ajouter une autre tâche avec priorité `2`.
-3. Revenir à la liste et cliquer sur « Afficher uniquement les tâches de priorité 1 ».
-4. Vérifier que seule la tâche de priorité 1 apparaît.
-5. Sélectionner un statut puis appliquer le filtre : les deux filtres peuvent être utilisés ensemble.
+Ils permettent notamment de vérifier :
 
-## Git et GitHub — travail en équipe
-Chaque membre doit travailler sur une branche personnelle, par exemple `feature/filtre-priorite-1`, faire des commits explicites, puis ouvrir une Pull Request vers `main`. Faire relire le code par un autre membre avant fusion.
+- La création d'une tâche.
+- L'affichage de la liste.
+- La validation des données.
+- La création et la suppression par requête POST.
+- Le filtre par statut.
+- Le filtre de priorité 1.
+- La combinaison des filtres.
 
-Exemple de commandes :
+## Travail en équipe avec Git et GitHub
+
+Chaque membre du groupe doit travailler sur une branche personnelle.
+
+Exemple :
+
 ```bash
-git init
-git add .
-git commit -m "chore: initialiser TaskLab groupe 5"
-git branch -M main
-git remote add origin URL_DU_DEPOT_GITHUB
-git push -u origin main
+git switch -c feature/nom-de-la-fonctionnalite
 ```
 
-Créer ensuite une branche pour une fonctionnalité :
+Après les modifications :
+
 ```bash
-git switch -c feature/filtre-priorite-1
 git add .
-git commit -m "feat: ajouter le filtre des tâches de priorité 1"
-git push -u origin feature/filtre-priorite-1
+git commit -m "Description des modifications"
+git push -u origin feature/nom-de-la-fonctionnalite
 ```
 
-Ne jamais versionner `.env`, `.venv` ou `db.sqlite3` : ils contiennent respectivement la configuration locale/secrets, l'environnement Python installé et la base de données locale. Le fichier `.gitignore` les exclut.
+Une Pull Request doit ensuite être créée sur GitHub pour proposer l'intégration des modifications dans la branche `main`.
+
+Chaque contribution doit faire l'objet d'une relecture.
+
+## Configuration et fichiers à ne pas versionner
+
+Les fichiers suivants ne doivent pas être envoyés sur GitHub :
+
+- `.env` : contient les paramètres et secrets propres à un environnement.
+- `.venv/` : contient l'environnement Python local.
+- `db.sqlite3` : contient la base de données locale.
+- `__pycache__/` : contient des fichiers temporaires Python.
+
+Le fichier `.gitignore` permet d'exclure ces éléments du dépôt.
 
 ## Intégration continue
-Le workflow `.github/workflows/tests.yml` installe Python et Django, applique les migrations et exécute les tests à chaque push et Pull Request. Sur GitHub, consulter l'onglet **Actions** et vérifier que l'exécution est verte.
 
-## Versions du TP
-- `v1.0.0` : version stable de base après implémentation, tests et documentation.
-- `v1.1.0` : ajout des filtres par statut et priorité 1 (variante Groupe 5), avec tests associés.
+Le projet utilise GitHub Actions pour automatiser les vérifications.
 
-Ces tags doivent être créés dans le dépôt GitHub sur les commits correspondants après validation du groupe.
+Le workflow se trouve dans :
+
+`.github/workflows/tests.yml`
+
+Il permet notamment d'installer les dépendances, d'appliquer les migrations et d'exécuter les tests automatiquement lors des événements configurés.
+
+Le résultat des exécutions est consultable dans l'onglet **Actions** du dépôt GitHub.
+
+## Versions du projet
+
+- **v1.0.0** : première version stable après validation de l'implémentation, des tests et de la documentation.
+- **v1.1.0** : version intégrant les améliorations et corrections de maintenance validées par le groupe.
+
+Les tags seront créés après validation des versions correspondantes.
 
 ## Gestion de projet
-Créer un tableau Trello avec les colonnes **À faire**, **En cours** et **Terminé**. Prévoir au moins six cartes/issues avec un responsable : installation, filtre par statut, filtre priorité 1, tests, documentation, revue et livraison.
 
-## Limites
-Ce projet est un support de TP local. Il n'inclut pas d'authentification utilisateur ni de configuration de déploiement en production.
+Le suivi du travail est organisé dans un tableau Trello comprenant trois colonnes :
+
+- À faire.
+- En cours.
+- Terminé.
+
+Les tâches suivies comprennent notamment l'installation, les fonctionnalités, les tests, la documentation, la maintenance et la livraison.
+
+## Limites du projet
+
+TaskLab est une application pédagogique destinée à un environnement local.
+
+Cette version ne comprend pas de système d'authentification utilisateur ni de configuration de déploiement en production.
