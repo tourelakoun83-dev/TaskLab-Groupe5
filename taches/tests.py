@@ -1,3 +1,4 @@
+
 from django.test import TestCase
 from django.urls import reverse
 from .models import Tache
@@ -116,7 +117,18 @@ class TacheTests(TestCase):
         self.assertNotContains(response, "Mauvaise priorité")
         self.assertNotContains(response, "Mauvais statut")
 
-    # Nouveau test ajouté par le membre 3 : formulaire vide
     def test_formulaire_vide_affiche_erreurs(self):
         response = self.client.post(reverse("creer_tache"), {})
         self.assertEqual(response.status_code, 200)
+
+    def test_filtre_priorite_invalide_affiche_toutes_les_taches(self):
+        Tache.objects.create(titre="Prioritaire", priorite=1)
+        Tache.objects.create(titre="Normale", priorite=2)
+
+        response = self.client.get(
+            reverse("liste_taches"),
+            {"priorite": "5"}
+        )
+
+        self.assertContains(response, "Prioritaire")
+        self.assertContains(response, "Normale")
